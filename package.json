@@ -4,7 +4,10 @@
     "description": "",
     "main": "index.js",
     "scripts": {
-        "dev": "tsc-watch --onSuccess \"node ./dist/main.js \" "
+        "dev": "tsc-watch --onSuccess \"node ./dist/main.js \"",
+        "lint:fix": "eslint \"src/**/*.ts\" --cache --fix",
+        "prettier:fix": "prettier --write \"src/**/*.ts\"",
+        "prepare": "husky install"
     },
     "keywords": [],
     "author": "",
@@ -15,8 +18,8 @@
         "@typescript-eslint/eslint-plugin": "^5.0.0",
         "@typescript-eslint/parser": "^5.0.0",
         "eslint": "^8.0.1",
-        "husky": "^7.0.2",
-        "lint-staged": "^11.2.3",
+        "husky": ">=6",
+        "lint-staged": ">=10",
         "prettier": "^2.4.1",
         "tsc-watch": "^4.5.0",
         "typescript": "^4.4.4"
@@ -28,16 +31,10 @@
         "discord.js": "^13.2.0",
         "dotenv": "^10.0.0"
     },
-    "husky": {
-        "hooks": {
-            "pre-commit": "lint-staged"
-        }
-    },
     "lint-staged": {
-        "*.{js,ts}": [
-            "prettier --write",
-            "eslint --fix",
-            "git add"
+        "*.ts": [
+            "yarn lint:fix",
+            "yarn prettier:fix"
         ]
     }
 }
