@@ -1,8 +1,13 @@
-import { Client } from "discord.js";
+import { IEvent } from "../@types";
 
-export default (client: Client<boolean>) => {
-    client.once("ready", (client) => {
+const event: IEvent = {
+    name: "ready",
+    once: true,
+    execute(client) {
         console.log(`Logged in as ${client.user.tag}!`);
+        // set RPC (Rich Presence)
         client.user.setActivity("idk");
-    });
+    },
 };
+
+export = event;

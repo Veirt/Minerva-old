@@ -1,5 +1,5 @@
-import { clientId, guildId, token } from "../config";
-import getCommands from "../utils/getCommands";
+import { clientId, guildId, token } from "./config";
+import getCommands from "./utils/getCommands";
 import { REST } from "@discordjs/rest";
 import { Routes } from "discord-api-types/v9";
 

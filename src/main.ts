@@ -1,12 +1,23 @@
 import { token } from "./config";
 import getCommands from "./utils/getCommands";
-import onReady from "./events/ready";
+import getEvents from "./utils/getEvents";
 import { Client, Collection, Intents } from "discord.js";
-import "./events/deploy";
+import "./deploy";
 
 // Create a new client instance
 const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
-onReady(client);
+
+// set events
+getEvents().then(async (eventFiles) => {
+    for (const file of eventFiles) {
+        const event = await import(file);
+        if (event.once) {
+            client.once(event.name, (...args) => event.execute(...args));
+        } else {
+            client.on(event.name, (...args) => event.execute(...args));
+        }
+    }
+});
 
 // set commands
 client.commands = new Collection();
