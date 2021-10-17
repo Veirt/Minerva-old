@@ -15,12 +15,20 @@ getCommands().then(async (commandFiles) => {
     const rest = new REST({ version: "9" }).setToken(token as string);
 
     // register application commands
-    rest.put(
-        Routes.applicationGuildCommands(clientId as string, guildId as string),
-        { body: commands },
-    )
-        .then(() =>
-            console.log("Successfully registered application commands."),
-        )
-        .catch((err) => console.error(err));
+    try {
+        await rest.put(
+            Routes.applicationGuildCommands(
+                clientId as string,
+                guildId as string,
+            ),
+            {
+                body: commands,
+            },
+        );
+        console.log("Successfully registered application commands.");
+        const commandList = commands.map((command) => command.name);
+        console.log(commandList);
+    } catch (err) {
+        console.error(err);
+    }
 });
