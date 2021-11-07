@@ -1,10 +1,9 @@
 import { clientId, guildId, token } from "./config";
-import getCommands from "./utils/getCommands";
 import { REST } from "@discordjs/rest";
 import { Routes } from "discord-api-types/v9";
 
 const commands: Array<any> = [];
-getCommands().then(async (commandFiles) => {
+getCommands().then(async commandFiles => {
     // loop over command files and import
     for (const file of commandFiles) {
         const command = await import(file);
@@ -26,7 +25,7 @@ getCommands().then(async (commandFiles) => {
             },
         );
         console.log("Successfully registered application commands.");
-        const commandList = commands.map((command) => command.name);
+        const commandList = commands.map(command => command.name);
         console.log(commandList);
     } catch (err) {
         console.error(err);

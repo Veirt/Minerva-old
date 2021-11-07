@@ -1,19 +1,21 @@
 import instance from "../api/axios";
+import { Command } from "../@types";
 import { SlashCommandBuilder } from "@discordjs/builders";
 import { CommandInteraction } from "discord.js";
-import { ICommand } from "../@types";
 import { AxiosResponse } from "axios";
 
-const command: ICommand = {
+const command: Command = {
     data: new SlashCommandBuilder()
         .setName("upscale")
         .setDescription("Upscale an image with Waifu2x API")
-        .addStringOption((option) =>
+        .addStringOption(option =>
             option.setName("image").setDescription("Enter an image URL"),
         ),
     async execute(interaction: CommandInteraction) {
         const image = interaction.options.getString("image");
 
+        // validate image
+        if (!image) return await interaction.reply("Image can't be empty.");
         await interaction.reply("Processing...");
 
         try {

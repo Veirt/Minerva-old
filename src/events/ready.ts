@@ -1,6 +1,6 @@
-import { IEvent } from "../@types";
+import { Event } from "../@types";
 
-const event: IEvent = {
+const event: Event = {
     name: "ready",
     once: true,
     execute(client) {

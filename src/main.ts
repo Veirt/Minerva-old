@@ -8,7 +8,7 @@ import "./deploy";
 const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
 
 // set events
-getEvents().then(async (eventFiles) => {
+getEvents().then(async eventFiles => {
     for (const file of eventFiles) {
         const event = await import(file);
         if (event.once) {
@@ -21,7 +21,7 @@ getEvents().then(async (eventFiles) => {
 
 // set commands
 client.commands = new Collection();
-getCommands().then(async (commandFiles) => {
+getCommands().then(async commandFiles => {
     for (const file of commandFiles) {
         const command = await import(file);
         client.commands.set(command.data.name, command);
@@ -29,7 +29,7 @@ getCommands().then(async (commandFiles) => {
 });
 
 // execute commands
-client.on("interactionCreate", async (interaction) => {
+client.on("interactionCreate", async interaction => {
     if (!interaction.isCommand()) return;
 
     const command = client.commands.get(interaction.commandName);
