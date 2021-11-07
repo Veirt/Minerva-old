@@ -5,6 +5,7 @@
     "main": "index.js",
     "scripts": {
         "dev": "tsc-watch --onSuccess \"node ./dist/main.js \"",
+        "build": "tsc",
         "lint:fix": "eslint \"src/**/*.ts\" --cache --fix",
         "prettier:fix": "prettier --write \"src/**/*.ts\"",
         "prepare": "husky install"
