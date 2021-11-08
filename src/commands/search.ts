@@ -2,10 +2,9 @@ import { MessageActionRow, MessageSelectMenu } from "discord.js";
 import { Anime } from "../entity/Anime";
 import { SelectMenuCommand } from "../@types";
 import { SlashCommandBuilder } from "@discordjs/builders";
-// import { getConnection } from "typeorm";
+import { getConnection } from "typeorm";
 import { parse } from "node-html-parser";
 import axios from "axios";
-import { getConnection } from "typeorm";
 
 const command: SelectMenuCommand = {
     data: new SlashCommandBuilder()
@@ -47,20 +46,23 @@ const command: SelectMenuCommand = {
     },
     async respond(interaction) {
         const animeRepository = getConnection().getRepository(Anime);
+        const animeList = interaction.values;
 
-        for await (const anime of interaction.values) {
+        for await (const anime of animeList) {
             const newAnime = animeRepository.create({ title: anime });
 
             try {
                 await animeRepository.save(newAnime);
-                await interaction.reply(`${anime} anime saved to database.`);
             } catch (err) {
                 await interaction.reply({
                     content: `${anime} already exists.`,
                 });
-                break;
+
+                return;
             }
         }
+
+        await interaction.reply(`${animeList.toString()} saved to database.`);
     },
 };
 
