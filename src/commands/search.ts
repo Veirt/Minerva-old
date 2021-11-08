@@ -41,7 +41,7 @@ const command: SelectMenuCommand = {
         );
 
         await interaction.reply({
-            content: "test",
+            content: "Search for anime:",
             components: [animeSelectMenu],
         });
     },
