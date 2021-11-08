@@ -12,19 +12,13 @@ getCommands().then(async commandFiles => {
     }
 
     // current Discord API version is 9
-    const rest = new REST({ version: "9" }).setToken(token as string);
+    const rest = new REST({ version: "9" }).setToken(token);
 
     // register application commands
     try {
-        await rest.put(
-            Routes.applicationGuildCommands(
-                clientId as string,
-                guildId as string,
-            ),
-            {
-                body: commands,
-            },
-        );
+        await rest.put(Routes.applicationGuildCommands(clientId, guildId), {
+            body: commands,
+        });
         console.log("Successfully registered application commands.");
         const commandList = commands.map(command => command.name);
         console.log(commandList);
