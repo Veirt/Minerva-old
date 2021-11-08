@@ -1,9 +1,9 @@
-import { MessageActionRow, MessageSelectMenu } from "discord.js";
+import { parseAnimeList, parseTitle } from "../utils/parseHtml";
 import { Anime } from "../entity/Anime";
 import { SelectMenuCommand } from "../@types";
+import { MessageActionRow, MessageSelectMenu } from "discord.js";
 import { SlashCommandBuilder } from "@discordjs/builders";
 import { getConnection } from "typeorm";
-import { parse } from "node-html-parser";
 import axios from "axios";
 
 const command: SelectMenuCommand = {
@@ -21,10 +21,9 @@ const command: SelectMenuCommand = {
             `https://gogoanime.cm/search.html?keyword=${title}`,
         );
 
-        const animeList = parse(res.data).querySelectorAll("ul.items>li");
+        const animeList = parseAnimeList(res.data);
         const options = animeList.map(anime => {
-            const title = anime.querySelector(".name>a")?.innerHTML;
-            if (!title) throw new Error("Title is not found.");
+            const title = parseTitle(anime);
             return {
                 label: title,
                 value: title,
