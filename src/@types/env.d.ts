@@ -6,11 +6,12 @@ declare global {
             DISCORD_CLIENT_ID: string;
             DISCORD_GUILD_ID: string;
             DISCORD_CHANNEL_ID: string;
-            DB_HOST: string;
-            DB_USERNAME: string;
-            DB_PASSWORD: string;
-            DB_NAME: string;
-            DB_PORT: number;
+            DATABASE_HOST: string;
+            DATABASE_URL: string;
+            DATABASE_USERNAME: string;
+            DATABASE_PASSWORD: string;
+            DATABASE_NAME: string;
+            DATABASE_PORT: number;
         }
     }
 }

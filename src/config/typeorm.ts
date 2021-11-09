@@ -4,11 +4,12 @@ const env = process.env;
 
 const typeormConfig: ConnectionOptions = {
     type: "postgres",
-    host: env.DB_HOST,
-    username: env.DB_USERNAME,
-    password: env.DB_PASSWORD,
-    database: env.DB_NAME,
-    port: env.DB_PORT || 5432,
+    url: env.DATABASE_URL,
+    host: env.DATABASE_HOST,
+    username: env.DATABASE_USERNAME,
+    password: env.DATABASE_PASSWORD,
+    database: env.DATABASE_NAME,
+    port: env.DATABASE_PORT || 5432,
     synchronize: true,
     entities: ["dist/entity/*{.ts,.js}"],
 };
