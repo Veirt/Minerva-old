@@ -16,7 +16,7 @@
     },
     "keywords": [],
     "author": "Muhammad Dony Mulya<vveirt@gmail.com>",
-    "license": "ISC",
+    "license": "MIT",
     "devDependencies": {
         "@types/glob": "^7.1.4",
         "@types/node": "^16.11.0",
