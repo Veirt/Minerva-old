@@ -1,6 +1,7 @@
 declare global {
     namespace NodeJS {
         interface ProcessEnv {
+            NODE_ENV: "production" | "development";
             DISCORD_CLIENT_TOKEN: string;
             DISCORD_CLIENT_ID: string;
             DISCORD_GUILD_ID: string;

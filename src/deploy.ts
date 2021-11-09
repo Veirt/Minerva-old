@@ -3,6 +3,8 @@ import { Routes } from "discord-api-types/v9";
 import { clientId, guildId, token } from "./config";
 import getCommands from "./utils/getCommands";
 
+const development = process.env.NODE_ENV === "development";
+
 const commands: Array<any> = [];
 getCommands().then(async commandFiles => {
     // loop over command files and import
@@ -16,9 +18,16 @@ getCommands().then(async commandFiles => {
 
     // register application commands
     try {
-        await rest.put(Routes.applicationGuildCommands(clientId, guildId), {
-            body: commands,
-        });
+        if (development) {
+            await rest.put(Routes.applicationGuildCommands(clientId, guildId), {
+                body: commands,
+            });
+        } else {
+            await rest.put(Routes.applicationCommands(clientId), {
+                body: commands,
+            });
+        }
+
         console.log("Successfully registered application commands.");
         const commandList = commands.map(command => command.name);
         console.log(commandList);
