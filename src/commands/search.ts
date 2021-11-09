@@ -22,11 +22,15 @@ const command: SelectMenuCommand = {
         );
 
         const animeList = parseAnimeList(res.data);
-        const options = animeList.map(anime => {
+        const options = animeList.flatMap(anime => {
             const title = parseTitle(anime);
+
+            // because i hate dub.
+            if (title.includes("(Dub)")) return [];
+
             return {
-                label: title,
-                value: title,
+                label: title.substr(0, 100),
+                value: title.substr(0, 100),
             };
         });
 
