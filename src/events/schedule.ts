@@ -29,7 +29,9 @@ const event: Event = {
                     if (!anime) continue;
 
                     if (anime.episode !== episode) {
-                        channel.send(`${anime.title} Episode ${episode}`);
+                        // send if the episode is null
+                        if (anime.episode)
+                            channel.send(`${anime.title} Episode ${episode}`);
 
                         anime.episode = episode;
                         await animeRepository.save(anime);
