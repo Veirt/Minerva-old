@@ -5,7 +5,13 @@ import { getConnection } from "typeorm";
 import { Event } from "../@types";
 import { channelId } from "../config";
 import { Anime } from "../entity/Anime";
-import { parseAnimeList, parseEpisode, parseTitle } from "../utils/parseHtml";
+import { scheduleEmbed } from "../utils/embeds";
+import {
+    parseAnimeList,
+    parseEpisode,
+    parseImage,
+    parseTitle,
+} from "../utils/parseHtml";
 
 const event: Event = {
     name: "ready",
@@ -22,6 +28,7 @@ const event: Event = {
                 try {
                     const title = parseTitle(release);
                     const episode = await parseEpisode(release);
+                    const image = await parseImage(release);
 
                     // find anime in the database
                     // and continue if there isn't match
@@ -29,11 +36,11 @@ const event: Event = {
                     if (!anime) continue;
 
                     if (anime.episode !== episode) {
-                        // send if the episode is null
-                        if (anime.episode)
-                            channel.send(`${anime.title} Episode ${episode}`);
-
                         anime.episode = episode;
+
+                        const embed = scheduleEmbed(image, anime);
+                        if (anime.episode) channel.send({ embeds: [embed] });
+
                         await animeRepository.save(anime);
                     }
                 } catch (err) {

@@ -23,3 +23,15 @@ export function parseEpisode(element: HTMLElement): Promise<number> {
         }
     });
 }
+
+export function parseImage(element: HTMLElement): Promise<string> {
+    return new Promise((resolve, reject) => {
+        const imageElement = element.querySelector("div.img>a>img");
+        if (!imageElement) {
+            return reject("Can't get the image");
+        }
+        const image = imageElement.getAttribute("src");
+
+        return resolve(image as string);
+    });
+}
