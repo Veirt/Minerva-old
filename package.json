@@ -15,7 +15,7 @@
         "node": "16.x"
     },
     "keywords": [],
-    "author": "",
+    "author": "Muhammad Dony Mulya<vveirt@gmail.com>",
     "license": "ISC",
     "devDependencies": {
         "@types/glob": "^7.1.4",
