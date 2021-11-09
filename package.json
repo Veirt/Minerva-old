@@ -11,6 +11,9 @@
         "prettier:fix": "prettier --write \"src/**/*.ts\"",
         "prepare": "husky install"
     },
+    "engines": {
+        "node": "16.x"
+    },
     "keywords": [],
     "author": "",
     "license": "ISC",
