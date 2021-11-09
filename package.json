@@ -6,6 +6,7 @@
     "scripts": {
         "dev": "tsc-watch --onSuccess \"node ./dist/main.js \"",
         "build": "tsc",
+        "start": "node dist/main.js",
         "lint:fix": "eslint \"src/**/*.ts\" --cache --fix",
         "prettier:fix": "prettier --write \"src/**/*.ts\"",
         "prepare": "husky install"
