@@ -1,6 +1,7 @@
 import { ConnectionOptions, createConnection } from "typeorm";
 
 const env = process.env;
+const production = env.NODE_ENV === "production";
 
 const typeormConfig: ConnectionOptions = {
     type: "postgres",
@@ -11,6 +12,7 @@ const typeormConfig: ConnectionOptions = {
     database: env.DATABASE_NAME,
     port: env.DATABASE_PORT || 5432,
     synchronize: true,
+    extra: { ssl: production },
     entities: ["dist/entity/*{.ts,.js}"],
 };
 
