@@ -1,10 +1,10 @@
+import { Client, Collection, Intents } from "discord.js";
 import "reflect-metadata";
 import { token } from "./config";
 import { connectDatabase } from "./config/typeorm";
+import "./deploy";
 import getCommands from "./utils/getCommands";
 import getEvents from "./utils/getEvents";
-import { Client, Collection, Intents } from "discord.js";
-import "./deploy";
 
 // Create a new client instance
 const client = new Client({ intents: [Intents.FLAGS.GUILDS] });

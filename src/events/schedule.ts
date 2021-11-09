@@ -1,11 +1,11 @@
-import { parseEpisode, parseAnimeList, parseTitle } from "../utils/parseHtml";
-import { Anime } from "../entity/Anime";
-import { Event } from "../@types";
-import { channelId } from "../config";
+import axios from "axios";
 import { Client, TextChannel } from "discord.js";
 import * as cron from "node-cron";
 import { getConnection } from "typeorm";
-import axios from "axios";
+import { Event } from "../@types";
+import { channelId } from "../config";
+import { Anime } from "../entity/Anime";
+import { parseAnimeList, parseEpisode, parseTitle } from "../utils/parseHtml";
 
 const event: Event = {
     name: "ready",

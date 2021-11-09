@@ -1,10 +1,10 @@
-import { parseAnimeList, parseTitle } from "../utils/parseHtml";
-import { Anime } from "../entity/Anime";
-import { SelectMenuCommand } from "../@types";
-import { MessageActionRow, MessageSelectMenu } from "discord.js";
 import { SlashCommandBuilder } from "@discordjs/builders";
-import { getConnection } from "typeorm";
 import axios from "axios";
+import { MessageActionRow, MessageSelectMenu } from "discord.js";
+import { getConnection } from "typeorm";
+import { SelectMenuCommand } from "../@types";
+import { Anime } from "../entity/Anime";
+import { parseAnimeList, parseTitle } from "../utils/parseHtml";
 
 const command: SelectMenuCommand = {
     data: new SlashCommandBuilder()
