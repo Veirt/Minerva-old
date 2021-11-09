@@ -13,7 +13,7 @@ const typeormConfig: ConnectionOptions = {
     port: env.DATABASE_PORT || 5432,
     synchronize: true,
     ssl: production,
-    extra: { ssl: production ? { rejectUnauthorized: false } : {} },
+    extra: { ssl: production ? { rejectUnauthorized: false } : null },
     entities: ["dist/entity/*{.ts,.js}"],
 };
 
