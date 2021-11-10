@@ -1,7 +1,6 @@
 import { MessageEmbed } from "discord.js";
-import { Anime } from "../entity/Anime";
 
-class BaseEmbed extends MessageEmbed {
+export class BaseEmbed extends MessageEmbed {
     constructor() {
         super();
         return new MessageEmbed().setColor("#98bcd4").setTimestamp();
@@ -22,7 +21,9 @@ export function scheduleEmbed(
         );
 }
 
-export function searchEmbed(animeList: Anime[]) {
+export function searchEmbed(
+    animeList: Array<{ title: string; episode?: number }>,
+) {
     const embed = new BaseEmbed().setTitle("Saved to database");
     let description = "";
 

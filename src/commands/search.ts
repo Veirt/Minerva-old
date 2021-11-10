@@ -54,7 +54,7 @@ const command: SelectMenuCommand = {
         const res = await axios.get("https://gogoanime.cm/");
         const newReleases = parseAnimeList(res.data);
 
-        const animeList: Array<Anime | { title: string }> = [];
+        const animeList: Array<{ title: string; episode?: number }> = [];
 
         for await (const release of newReleases) {
             const title = parseTitle(release);

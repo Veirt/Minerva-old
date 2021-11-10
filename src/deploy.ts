@@ -3,7 +3,7 @@ import { Routes } from "discord-api-types/v9";
 import { clientId, guildId, token } from "./config";
 import getCommands from "./utils/getCommands";
 
-const development = process.env.NODE_ENV === "development";
+const production = process.env.NODE_ENV === "production";
 const deploy = process.env.DEPLOY;
 
 const commands: Array<any> = [];
@@ -20,7 +20,7 @@ if (deploy)
 
         // register application commands
         try {
-            if (development) {
+            if (!production) {
                 await rest.put(
                     Routes.applicationGuildCommands(clientId, guildId),
                     {
