@@ -75,10 +75,7 @@ const command: SelectMenuCommand = {
             animeList.push({ title: anime });
         }
 
-        console.log(animeList);
-
         for await (const anime of animeList) {
-            console.log(anime.title);
             const newAnime = animeRepository.create(anime);
 
             try {
