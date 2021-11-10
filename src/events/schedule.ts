@@ -37,7 +37,7 @@ const event: Event = {
 
                     if (anime.episode !== episode) {
                         const embed = scheduleEmbed(image, title, episode);
-                        if (anime.episode) channel.send({ embeds: [embed] });
+                        channel.send({ embeds: [embed] });
 
                         anime.episode = episode;
                         await animeRepository.save(anime);

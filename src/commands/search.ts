@@ -4,7 +4,8 @@ import { MessageActionRow, MessageSelectMenu } from "discord.js";
 import { getConnection } from "typeorm";
 import { SelectMenuCommand } from "../@types";
 import { Anime } from "../entity/Anime";
-import { parseAnimeList, parseTitle } from "../utils/parseHtml";
+import { searchEmbed } from "../utils/embeds";
+import { parseAnimeList, parseEpisode, parseTitle } from "../utils/parseHtml";
 
 const command: SelectMenuCommand = {
     data: new SlashCommandBuilder()
@@ -49,23 +50,49 @@ const command: SelectMenuCommand = {
     },
     async respond(interaction) {
         const animeRepository = getConnection().getRepository(Anime);
-        const animeList = interaction.values;
+
+        const res = await axios.get("https://gogoanime.cm/");
+        const newReleases = parseAnimeList(res.data);
+
+        const animeList: Array<Anime | { title: string }> = [];
+
+        for await (const release of newReleases) {
+            const title = parseTitle(release);
+            const episode = await parseEpisode(release);
+
+            if (interaction.values.includes(title)) {
+                animeList.push({ title, episode });
+            }
+        }
+
+        for (const anime of interaction.values) {
+            for (const release of animeList) {
+                if (release.title === anime) {
+                    continue;
+                }
+            }
+
+            animeList.push({ title: anime });
+        }
+
+        console.log(animeList);
 
         for await (const anime of animeList) {
-            const newAnime = animeRepository.create({ title: anime });
+            console.log(anime.title);
+            const newAnime = animeRepository.create(anime);
 
             try {
                 await animeRepository.save(newAnime);
             } catch (err) {
                 await interaction.reply({
-                    content: `${anime} already exists.`,
+                    content: `${anime.title} already exists.`,
                 });
 
                 return;
             }
         }
 
-        await interaction.reply(`${animeList.toString()} saved to database.`);
+        await interaction.reply({ embeds: [searchEmbed(animeList)] });
     },
 };
 
