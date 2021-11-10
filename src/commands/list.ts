@@ -14,15 +14,12 @@ const command: SelectMenuCommand = {
         .setDescription("Get anime info in database"),
     async execute(interaction) {
         const title = interaction.options.getString("title");
-        if (!title) {
-            await interaction.reply("Title cannot be empty.");
-            return;
-        }
-
         const animeRepository = getConnection().getRepository(Anime);
-        const animeList = await animeRepository.find({
-            title: Like(`%${title}%`),
-        });
+        const animeList = title
+            ? await animeRepository.find({
+                  title: Like(`%${title}%`),
+              })
+            : await animeRepository.find();
 
         if (animeList.length <= 0) {
             await interaction.reply("No anime is found");
