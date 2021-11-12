@@ -6,11 +6,6 @@ const production = env.NODE_ENV === "production";
 const typeormConfig: ConnectionOptions = {
     type: "postgres",
     url: env.DATABASE_URL,
-    host: env.DATABASE_HOST,
-    username: env.DATABASE_USERNAME,
-    password: env.DATABASE_PASSWORD,
-    database: env.DATABASE_NAME,
-    port: env.DATABASE_PORT || 5432,
     synchronize: true,
     ssl: production,
     extra: { ssl: production ? { rejectUnauthorized: false } : null },
@@ -20,8 +15,9 @@ const typeormConfig: ConnectionOptions = {
 export const connectDatabase = (cb: () => void) => {
     createConnection(typeormConfig)
         .then(() => {
-            const { database, username } = typeormConfig;
-            console.log(`Connected to database ${database} as ${username}.`);
+            const { url } = typeormConfig;
+
+            console.log(`Connected to database URL: ${url}.`);
             cb();
         })
 
