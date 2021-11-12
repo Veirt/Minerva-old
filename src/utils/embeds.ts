@@ -1,9 +1,12 @@
 import { MessageEmbed } from "discord.js";
 
 export class BaseEmbed extends MessageEmbed {
-    constructor() {
+    constructor(title: string) {
         super();
-        return new MessageEmbed().setColor("#98bcd4").setTimestamp();
+        return new MessageEmbed()
+            .setTitle(title)
+            .setColor("#98bcd4")
+            .setTimestamp();
     }
 }
 
@@ -12,8 +15,7 @@ export function scheduleEmbed(
     title: string,
     episode: number,
 ) {
-    return new BaseEmbed()
-        .setTitle("New Release")
+    return new BaseEmbed("New Release")
         .setThumbnail(thumbnail)
         .addFields(
             { name: "Title", value: title },
@@ -24,7 +26,7 @@ export function scheduleEmbed(
 export function searchEmbed(
     animeList: Array<{ title: string; episode?: number }>,
 ) {
-    const embed = new BaseEmbed().setTitle("Saved to database");
+    const embed = new BaseEmbed("Saved to database");
     let description = "";
 
     animeList.forEach(anime => {

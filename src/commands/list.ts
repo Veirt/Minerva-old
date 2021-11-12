@@ -57,7 +57,7 @@ const command: SelectMenuCommand = {
 
         const episode = anime.episode ? anime.episode.toString() : "-";
 
-        const embed = new BaseEmbed().addFields(
+        const embed = new BaseEmbed("Anime List").addFields(
             {
                 name: "Title",
                 value: anime.title,

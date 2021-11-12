@@ -63,9 +63,7 @@ const command: SelectMenuCommand = {
             }
         }
 
-        const embed = new BaseEmbed()
-            .setTitle("Remove")
-            .setDescription(description);
+        const embed = new BaseEmbed("Remove").setDescription(description);
 
         await interaction.reply({ embeds: [embed] });
     },
