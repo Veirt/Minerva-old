@@ -2,12 +2,12 @@ import { SlashCommandBuilder } from "@discordjs/builders";
 import axios from "axios";
 import { MessageActionRow, MessageSelectMenu } from "discord.js";
 import { getConnection } from "typeorm";
-import { SelectMenuCommand } from "../@types";
+import { Command } from "../@types";
 import { Anime } from "../entity/Anime";
 import { searchEmbed } from "../utils/embeds";
 import { parseAnimeList, parseEpisode, parseTitle } from "../utils/parseHtml";
 
-const command: SelectMenuCommand = {
+const command: Command = {
     data: new SlashCommandBuilder()
         .setName("search")
         .addStringOption(option =>

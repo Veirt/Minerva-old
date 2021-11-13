@@ -1,11 +1,11 @@
 import { SlashCommandBuilder } from "@discordjs/builders";
 import { MessageActionRow, MessageSelectMenu } from "discord.js";
 import { getConnection, Like } from "typeorm";
-import { SelectMenuCommand } from "../@types";
+import { Command } from "../@types";
 import { Anime } from "../entity/Anime";
 import { BaseEmbed } from "../utils/embeds";
 
-const command: SelectMenuCommand = {
+const command: Command = {
     data: new SlashCommandBuilder()
         .setName("remove")
         .addStringOption(option =>
