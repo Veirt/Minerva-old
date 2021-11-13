@@ -28,9 +28,9 @@ const event: Event = {
 
             for (const release of releases) {
                 try {
-                    const title = parseTitle(release);
-                    const episode = await parseEpisode(release);
-                    const image = await parseImage(release);
+                    const { title, url } = parseTitle(release);
+                    const episode = parseEpisode(release);
+                    const image = parseImage(release);
 
                     // find anime in the database
                     // and continue if there isn't match
@@ -38,7 +38,7 @@ const event: Event = {
                     if (!anime) continue;
 
                     if (anime.episode !== episode) {
-                        const embed = scheduleEmbed(image, title, episode);
+                        const embed = scheduleEmbed(image, title, url, episode);
 
                         // loop over channels and send message to each channel
                         for (const ch of channels) {

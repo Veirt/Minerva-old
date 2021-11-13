@@ -13,10 +13,12 @@ export class BaseEmbed extends MessageEmbed {
 export function scheduleEmbed(
     thumbnail: string,
     title: string,
+    url: string,
     episode: number,
 ) {
     return new BaseEmbed("New Release")
         .setThumbnail(thumbnail)
+        .setURL(url)
         .addFields(
             { name: "Title", value: title },
             { name: "Episode", value: episode.toString() },
