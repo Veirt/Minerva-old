@@ -24,7 +24,7 @@ const command: Command = {
 
         const animeList = parseAnimeList(res.data);
         const options = animeList.flatMap(anime => {
-            const title = parseTitle(anime);
+            const { title } = parseTitle(anime);
 
             // because i hate dub.
             if (title.includes("(Dub)")) return [];
@@ -57,8 +57,8 @@ const command: Command = {
         const animeList: Array<{ title: string; episode?: number }> = [];
 
         for await (const release of newReleases) {
-            const title = parseTitle(release);
-            const episode = await parseEpisode(release);
+            const { title } = parseTitle(release);
+            const episode = parseEpisode(release);
 
             if (interaction.values.includes(title)) {
                 animeList.push({ title, episode });
