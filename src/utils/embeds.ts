@@ -18,7 +18,7 @@ export function scheduleEmbed(
 ) {
     return new BaseEmbed("New Release")
         .setThumbnail(thumbnail)
-        .setURL(url)
+        .setURL(`https://gogoanime.cm${url}`)
         .addFields(
             { name: "Title", value: title },
             { name: "Episode", value: episode.toString() },

@@ -70,9 +70,9 @@ const command: Command = {
                 if (release.title === anime) {
                     continue;
                 }
-            }
 
-            animeList.push({ title: anime });
+                animeList.push({ title: anime });
+            }
         }
 
         for await (const anime of animeList) {
