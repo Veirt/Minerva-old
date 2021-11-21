@@ -49,6 +49,7 @@ const command: Command = {
         });
     },
     async respond(interaction) {
+        let searchedAnime = interaction.values;
         const animeRepository = getConnection().getRepository(Anime);
 
         const res = await axios.get("https://gogoanime.cm/");
@@ -56,26 +57,23 @@ const command: Command = {
 
         const animeList: Array<{ title: string; episode?: number }> = [];
 
-        for await (const release of newReleases) {
+        for (let i = 0; i < newReleases.length; i++) {
+            const release = newReleases[i];
+
             const { title } = parseTitle(release);
             const episode = parseEpisode(release);
 
-            if (interaction.values.includes(title)) {
+            if (!searchedAnime.length) break;
+
+            if (searchedAnime.includes(title)) {
+                searchedAnime = searchedAnime.filter(anime => anime !== title);
                 animeList.push({ title, episode });
             }
         }
 
-        for (const anime of interaction.values) {
-            for (const release of animeList) {
-                if (release.title === anime) {
-                    continue;
-                }
+        searchedAnime.forEach(anime => animeList.push({ title: anime }));
 
-                animeList.push({ title: anime });
-            }
-        }
-
-        for await (const anime of animeList) {
+        animeList.forEach(async anime => {
             const newAnime = animeRepository.create(anime);
 
             try {
@@ -87,7 +85,7 @@ const command: Command = {
 
                 return;
             }
-        }
+        });
 
         await interaction.reply({ embeds: [searchEmbed(animeList)] });
     },
