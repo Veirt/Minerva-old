@@ -16,7 +16,7 @@ export function scheduleEmbed(
     url: string,
     episode: number,
 ) {
-    return new BaseEmbed("New Release")
+    return new BaseEmbed(title)
         .setThumbnail(thumbnail)
         .setURL(`https://gogoanime.cm${url}`)
         .addFields(
