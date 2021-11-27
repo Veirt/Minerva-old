@@ -12,7 +12,7 @@
         "prepare": "husky install"
     },
     "engines": {
-        "node": "16.x"
+        "node": "17.x"
     },
     "keywords": [],
     "author": "Muhammad Dony Mulya<vveirt@gmail.com>",
